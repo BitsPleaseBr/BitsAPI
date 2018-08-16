@@ -7,7 +7,7 @@ import model.bean.info.Info;
 public class EnderecoBean implements Bean {
 
   
-  public final int RESIDENCIAL = 1, COMERCIAL = 2;
+  public transient final int RESIDENCIAL = 1, COMERCIAL = 2;
   
   private HashMap<EnderecoInfo, Object> infosEnd = new HashMap<>();
   
@@ -34,4 +34,10 @@ public class EnderecoBean implements Bean {
     return info;
   }
 
+  
+  @Override
+  public String toString() {
+    
+    return String.format("infosEnd:%s", infosEnd);
+  }
 }

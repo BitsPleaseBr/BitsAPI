@@ -48,4 +48,11 @@ public class MedicoBean extends UserBean {
 
     return info;
   }
+  
+  
+  @Override
+  public String toString() {
+    
+    return super.toString() + "," + String.format("infosMed:%s", infosMed);
+  }
 }

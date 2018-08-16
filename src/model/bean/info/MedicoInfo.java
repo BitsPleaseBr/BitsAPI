@@ -10,7 +10,7 @@ public enum MedicoInfo implements Info {
    */
 
   // Informações "gerais"
-  CRM("crm"), Especializacao("especializacao"), UF("uf"), Pais("pais"), IDUser("user_id");
+  IDUser("user_id"), CRM("crm"), UF("uf"), Pais("pais");
 
 
   // Campo que esse enum representa no banco

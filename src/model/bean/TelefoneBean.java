@@ -7,7 +7,7 @@ import model.bean.info.TelefoneInfo;
 public class TelefoneBean implements Bean {
 
   
-  public final int TELEFONE = 1, CELULAR = 2;
+  public transient final int TELEFONE = 1, CELULAR = 2;
   
   private HashMap<TelefoneInfo, Object> infosTel = new HashMap<>();
   
@@ -34,4 +34,10 @@ public class TelefoneBean implements Bean {
     return info;
   }
 
+  
+  @Override
+  public String toString() {
+    
+    return String.format("infosTel:%s", infosTel);
+  }
 }

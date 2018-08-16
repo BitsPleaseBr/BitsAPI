@@ -146,11 +146,8 @@ public class StatementFactory {
       }
 
       case SELECT: {
-
+        
         for (Info info : infos) {
-
-          if (info.equals(condition))
-            continue;
 
           campos += info.getCampo();
           campos += i < infos.length - 1 ? ", " : "";

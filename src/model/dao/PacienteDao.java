@@ -3,11 +3,14 @@ package model.dao;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import model.bean.EnderecoBean;
 import model.bean.PacienteBean;
+import model.bean.TelefoneBean;
 import model.bean.UserBean;
 import model.bean.info.Info;
 import model.bean.info.PacienteInfo;
 import model.bean.info.Tabela;
+import model.bean.info.UserInfo;
 
 public class PacienteDao extends UserDao {
 
@@ -54,21 +57,32 @@ public class PacienteDao extends UserDao {
   }
 
   public PacienteBean selecionar(int id) {
-
+    
     return selecionar(PacienteInfo.IDUser, id);
   }
-
+  
   public PacienteBean selecionar(Info condition, Object conditionValue) {
 
-    UserBean ub = super.selecionar(condition, conditionValue);
+    UserBean ub = condition.equals(PacienteInfo.IDUser) ? super.selecionar((int) conditionValue) : super.selecionar(condition, conditionValue);
 
     PacienteBean pb = new PacienteBean();
     pb.getInfosUser().putAll(ub.getInfosUser());
-
+    for (EnderecoBean end : ub.getEnderecos()) {
+      
+      pb.addEndereco(end);
+    }
+    
+    for (TelefoneBean tel : ub.getTelefones()) {
+      
+      pb.addTelefone(tel);
+    }
+    
     try {
 
+      int id = (int) pb.getInfo(UserInfo.ID);
+      
       ResultSet rs =
-          infoToSelectStatement(condition, conditionValue, PacienteInfo.values()).executeQuery();
+          infoToSelectStatement(PacienteInfo.IDUser, id, PacienteInfo.values()).executeQuery();
 
       while (rs.next()) {
 
@@ -89,8 +103,8 @@ public class PacienteDao extends UserDao {
 
     } catch (SQLException e) {
 
-      System.out.println("Não foi possível selecionar o paciente usando a condição " + condition
-          + " com  o valor " + conditionValue);
+      System.out.println("Não foi possível selecionar o usuário usando a condição " + condition
+          + " com o valor " + conditionValue);
       e.printStackTrace();
     }
 

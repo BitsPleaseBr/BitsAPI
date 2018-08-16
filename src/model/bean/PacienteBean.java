@@ -45,4 +45,11 @@ public class PacienteBean extends UserBean {
 
     return info;
   }
+  
+  
+  @Override
+  public String toString() {
+    
+    return super.toString() + "," + String.format("infosPac:%s", infosPac);
+  }
 }

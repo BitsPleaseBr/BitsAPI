@@ -22,7 +22,7 @@ public class UserBean implements Bean {
   public UserBean setInfo(UserInfo key, Object value) {
 
     infosUser.put(key, key.parse(value));
-
+    
     return this;
   }
 
@@ -70,5 +70,12 @@ public class UserBean implements Bean {
     info.putAll(infosUser);
 
     return info;
+  }
+  
+  
+  @Override
+  public String toString() {
+    
+    return String.format("infosUser:%s,enderecos:%s,telefones:%s", infosUser, enderecos, telefones);
   }
 }

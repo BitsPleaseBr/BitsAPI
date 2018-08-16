@@ -12,6 +12,7 @@ import model.bean.info.Info;
 import model.bean.info.MedicoInfo;
 import model.bean.info.Tabela;
 import model.bean.info.TelefoneInfo;
+import model.bean.info.UserInfo;
 
 public class MedicoDao extends UserDao {
 
@@ -71,21 +72,33 @@ public class MedicoDao extends UserDao {
   }
 
   public MedicoBean selecionar(int id) {
-
+    
     return selecionar(MedicoInfo.IDUser, id);
   }
-
+  
   public MedicoBean selecionar(Info condition, Object conditionValue) {
 
-    UserBean ub = super.selecionar(condition, conditionValue);
+    UserBean ub = condition.equals(MedicoInfo.IDUser) ? super.selecionar((int) conditionValue) : super.selecionar(condition, conditionValue);
 
-    MedicoBean pb = new MedicoBean();
-    pb.getInfosUser().putAll(ub.getInfosUser());
+    MedicoBean mb = new MedicoBean();
+    mb.getInfosUser().putAll(ub.getInfosUser());
+    
+    for (EnderecoBean end : ub.getEnderecos()) {
+      
+      mb.addEndereco(end);
+    }
+    
+    for (TelefoneBean tel : ub.getTelefones()) {
+      
+      mb.addTelefone(tel);
+    }
 
     try {
 
+      int id = (int) mb.getInfo(UserInfo.ID);
+      
       ResultSet rs =
-          infoToSelectStatement(condition, conditionValue, MedicoInfo.values()).executeQuery();
+          infoToSelectStatement(MedicoInfo.IDUser, id, MedicoInfo.values()).executeQuery();
 
       while (rs.next()) {
 
@@ -97,21 +110,24 @@ public class MedicoDao extends UserDao {
 
           for (MedicoInfo info : MedicoInfo.values()) {
 
-            if (info.getCampo().equals(colName))
-              pb.setInfo(info, rs.getObject(i));
-            break;
+            if (info.getCampo().equals(colName)) {
+              
+              mb.setInfo(info, rs.getObject(i));
+              break;
+            }
+              
           }
         }
       }
 
     } catch (SQLException e) {
 
-      System.out.println("Não foi possível selecionar o médico usando a condição " + condition
-          + " com  o valor " + conditionValue);
+      System.out.println("Não foi possível selecionar o usuário usando a condição " + condition
+          + " com o valor " + conditionValue);
       e.printStackTrace();
     }
 
-    return null;
+    return mb;
   }
 
 }
