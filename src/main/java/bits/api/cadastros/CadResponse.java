@@ -2,6 +2,7 @@ package bits.api.cadastros;
 
 public class CadResponse {
 
+  
   protected boolean sucesso;
   protected int id;
   

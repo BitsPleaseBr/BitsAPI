@@ -12,7 +12,7 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
     String email = input.getEmail();
     String senha = input.getSenha();
     
-    return new LoginResponse(new UserDao() {}.login(email, senha));
+    return new LoginResponse(true, new UserDao() {}.login(email, senha));
   }
 
 }
