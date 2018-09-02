@@ -4,11 +4,13 @@ public class LoginResponse {
 
   
   private int id;
+  private boolean sucesso;
   
   
-  public LoginResponse(int id) {
+  public LoginResponse(boolean sucesso, int id) {
     
     this.id = id;
+    this.sucesso = sucesso;
   }
   
   
@@ -20,6 +22,17 @@ public class LoginResponse {
   public int getId() {
     
     return this.id;
+  }
+  
+  
+  public void setSucesso(boolean sucesso) {
+    
+    this.sucesso = sucesso;
+  }
+  
+  public boolean getSucesso() {
+    
+    return this.sucesso;
   }
   
   
