@@ -10,6 +10,7 @@ public class LoginResponse extends CadastroResponse {
   
   public LoginResponse(boolean sucesso, int id) {
     
+    setLambdaInvocada("Lambda para Login de usuário");
     this.id = id;
     this.sucesso = sucesso;
   }
@@ -26,5 +27,8 @@ public class LoginResponse extends CadastroResponse {
   }
   
   
-  public LoginResponse() {}
+  public LoginResponse() {
+    
+    setLambdaInvocada("Lambda para Login de usuário");
+  }
 }

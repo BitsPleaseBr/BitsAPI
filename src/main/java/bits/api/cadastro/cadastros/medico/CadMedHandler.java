@@ -3,6 +3,7 @@ package bits.api.cadastro.cadastros.medico;
 import java.sql.SQLException;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import bits.api.Handler;
 import control.crypto.PswdStorage;
 import model.bean.EnderecoBean;
 import model.bean.MedicoBean;
@@ -13,16 +14,20 @@ import model.bean.info.TelefoneInfo;
 import model.bean.info.UserInfo;
 import model.dao.MedicoDao;
 
-public class CadMedHandler implements RequestHandler<CadMedRequest, CadMedResponse> {
+public class CadMedHandler extends Handler implements RequestHandler<CadMedRequest, CadMedResponse> {
   
   @Override
   public CadMedResponse handleRequest(CadMedRequest input, Context context) {
-
+    
+    setContext(context);
+    
     //Fazendo resposta
     CadMedResponse response = new CadMedResponse();
     
     MedicoBean mb = new MedicoBean();
 
+    log("Definindo informações de usuário do médico...");
+    
     // Informações do médico
     mb.setInfo(UserInfo.Nome, input.getNome());
     mb.setInfo(UserInfo.Sobrenome, input.getSobrenome());
@@ -31,22 +36,30 @@ public class CadMedHandler implements RequestHandler<CadMedRequest, CadMedRespon
     mb.setInfo(UserInfo.Email, input.getEmail());
     mb.setInfo(UserInfo.Senha, PswdStorage.clientPswdHash(input.getSenha(), input.getEmail()));
 
+    log("Definindo informações médicas do médico...");
+    
     mb.setInfo(MedicoInfo.CRM, input.getCrm());
     mb.setInfo(MedicoInfo.UF, input.getUf());
     mb.setInfo(MedicoInfo.Pais, input.getPais());
 
+    log("Definindo informações de telefone do médico...");
+    
     // Telefone
     TelefoneBean tt = new TelefoneBean();
 
     tt.setInfo(TelefoneInfo.Tipo, tt.TELEFONE);
     tt.setInfo(TelefoneInfo.Numero, input.getTelefone());
 
+    log("Definindo informações de celular do médico...");
+    
     // Celular
     TelefoneBean tc = new TelefoneBean();
 
     tc.setInfo(TelefoneInfo.Tipo, tc.CELULAR);
     tc.setInfo(TelefoneInfo.Numero, input.getCelular());
 
+    log("Definindo informações de endereço residencial do médico...");
+    
     // Endereço Residencial
     EnderecoBean er = new EnderecoBean();
 
@@ -59,6 +72,8 @@ public class CadMedHandler implements RequestHandler<CadMedRequest, CadMedRespon
     er.setInfo(EnderecoInfo.Numero, input.getNumeroResidencial());
     er.setInfo(EnderecoInfo.Complemento, input.getComplementoResidencial());
 
+    log("Definindo informações de endereço comercial do médico...");
+    
     // Endereço Comercial
     EnderecoBean ec = new EnderecoBean();
 
@@ -71,6 +86,8 @@ public class CadMedHandler implements RequestHandler<CadMedRequest, CadMedRespon
     ec.setInfo(EnderecoInfo.Numero, input.getNumeroComercial());
     ec.setInfo(EnderecoInfo.Complemento, input.getComplementoComercial());
 
+    log("Adicionando informações ao bean do médico...");
+    
     //Adicionando adicionais ao Bean
     mb.addTelefone(tt);
     mb.addTelefone(tc);
@@ -82,19 +99,25 @@ public class CadMedHandler implements RequestHandler<CadMedRequest, CadMedRespon
     
     try {
       
+      log("Cadastrando médico...");
+      
       id = new MedicoDao().cadastrar(mb);
+      
+      log("Médico cadastrado com sucesso!");
     } catch (SQLException e) {
       
       response.setSucesso(false);
       response.addMessage("Falha", "Erro ao comunicar com banco de dados");
       
-      context.getLogger().log("Erro ao comunicar com banco de dados: " + e.getMessage());
+      log("Erro ao comunicar com banco de dados: " + e.getMessage());
       
       return response;
     }
     
     response.setId(id);
     response.setSucesso(true);
+    
+    log("A função foi executada com sucesso!");
     
     return response;
   }

@@ -3,20 +3,25 @@ package bits.api.cadastro.cadastros.paciente;
 import java.sql.SQLException;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import bits.api.Handler;
 import control.crypto.PswdStorage;
 import model.bean.PacienteBean;
 import model.bean.info.UserInfo;
 import model.dao.PacienteDao;
 
-public class CadPacHandler implements RequestHandler<CadPacRequest, CadPacResponse> {
+public class CadPacHandler extends Handler implements RequestHandler<CadPacRequest, CadPacResponse> {
 
   @Override
   public CadPacResponse handleRequest(CadPacRequest input, Context context) {
 
+    setContext(context);
+    
     CadPacResponse response = new CadPacResponse();
 
     PacienteBean pb = new PacienteBean();
 
+    log("Definindo informações de usuário do paciente...");
+    
     pb.setInfo(UserInfo.Nome, input.getNome());
     pb.setInfo(UserInfo.Sobrenome, input.getSobrenome());
     pb.setInfo(UserInfo.CPF, input.getCpf());
@@ -27,13 +32,17 @@ public class CadPacHandler implements RequestHandler<CadPacRequest, CadPacRespon
     int id = -1;
     try {
 
+      log("Cadastrando paciente...");
+      
       id = new PacienteDao().cadastrar(pb);
+
+      log("Paciente cadastrado com sucesso!");
     } catch (SQLException e) {
 
       response.setSucesso(false);
       response.addMessage("Falha", "Falha ao comunicar com banco de dados");
       
-      context.getLogger().log("Falha ao comunicar com banco de dados: " + e.getMessage());
+      log("Falha ao comunicar com banco de dados: " + e.getMessage());
       
       return response;
     }
@@ -41,6 +50,8 @@ public class CadPacHandler implements RequestHandler<CadPacRequest, CadPacRespon
     response.setId(id);
     response.setSucesso(true);
 
+    log("A função foi executada com sucesso!");
+    
     return response;
   }
 }

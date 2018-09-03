@@ -5,7 +5,7 @@ import bits.api.Response;
 public class CadastroResponse extends Response {
 
   
-  private String lambdaInvocada;
+  protected String lambdaInvocada;
   
   
   public void setLambdaInvocada(String nome) {

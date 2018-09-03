@@ -10,6 +10,7 @@ public class VerEmailResponse extends CadastroResponse {
   
   public VerEmailResponse(boolean sucesso, boolean valido) {
     
+    setLambdaInvocada("Lambda para Verificação de E-mail");
     this.sucesso = sucesso;
     this.valido = valido;
   }
@@ -26,5 +27,8 @@ public class VerEmailResponse extends CadastroResponse {
   }
   
   
-  public VerEmailResponse() {}
+  public VerEmailResponse() {
+    
+    setLambdaInvocada("Lambda para Verificação de E-mail");
+  }
 }

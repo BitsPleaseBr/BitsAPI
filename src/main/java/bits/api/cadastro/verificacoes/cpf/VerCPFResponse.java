@@ -10,6 +10,7 @@ public class VerCPFResponse extends CadastroResponse {
   
   public VerCPFResponse(boolean sucesso, boolean valido) {
     
+    setLambdaInvocada("Lambda Para Verificação de CPF");
     this.sucesso = sucesso;
     this.valido = valido;
   }
@@ -25,5 +26,8 @@ public class VerCPFResponse extends CadastroResponse {
     return this.valido;
   }
   
-  public VerCPFResponse() {}
+  public VerCPFResponse() {
+    
+    setLambdaInvocada("Lambda Para Verificação de CPF");
+  }
 }
