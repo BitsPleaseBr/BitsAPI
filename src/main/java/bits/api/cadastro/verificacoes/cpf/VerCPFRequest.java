@@ -1,6 +1,8 @@
-package bits.api.verificacoes.cpf;
+package bits.api.cadastro.verificacoes.cpf;
 
-public class VerCPFRequest {
+import bits.api.cadastro.CadastroRequest;
+
+public class VerCPFRequest extends CadastroRequest {
 
   
   private String cpf;

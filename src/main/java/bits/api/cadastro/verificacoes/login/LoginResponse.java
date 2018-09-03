@@ -1,14 +1,16 @@
-package bits.api.verificacoes.login;
+package bits.api.cadastro.verificacoes.login;
 
-public class LoginResponse {
+import bits.api.cadastro.CadastroResponse;
+
+public class LoginResponse extends CadastroResponse {
 
   
   private int id;
-  private boolean sucesso;
   
   
   public LoginResponse(boolean sucesso, int id) {
     
+    setLambdaInvocada("Lambda para Login de usuário");
     this.id = id;
     this.sucesso = sucesso;
   }
@@ -25,16 +27,8 @@ public class LoginResponse {
   }
   
   
-  public void setSucesso(boolean sucesso) {
+  public LoginResponse() {
     
-    this.sucesso = sucesso;
+    setLambdaInvocada("Lambda para Login de usuário");
   }
-  
-  public boolean getSucesso() {
-    
-    return this.sucesso;
-  }
-  
-  
-  public LoginResponse() {}
 }

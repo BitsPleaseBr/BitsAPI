@@ -1,27 +1,18 @@
-package bits.api.verificacoes.email;
+package bits.api.cadastro.verificacoes.email;
 
-public class VerEmailResponse {
+import bits.api.cadastro.CadastroResponse;
+
+public class VerEmailResponse extends CadastroResponse {
 
   
-  private boolean sucesso;
   private boolean valido;
   
   
   public VerEmailResponse(boolean sucesso, boolean valido) {
     
+    setLambdaInvocada("Lambda para Verificação de E-mail");
     this.sucesso = sucesso;
     this.valido = valido;
-  }
-  
-  
-  public void setSucesso(boolean sucesso) {
-    
-    this.sucesso = sucesso;
-  }
-  
-  public boolean getSucesso() {
-    
-    return this.sucesso;
   }
   
   
@@ -36,5 +27,8 @@ public class VerEmailResponse {
   }
   
   
-  public VerEmailResponse() {}
+  public VerEmailResponse() {
+    
+    setLambdaInvocada("Lambda para Verificação de E-mail");
+  }
 }
