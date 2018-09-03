@@ -1,5 +1,6 @@
 package bits.api.cadastros.medico;
 
+import java.sql.SQLException;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import control.crypto.PswdStorage;
@@ -13,10 +14,13 @@ import model.bean.info.UserInfo;
 import model.dao.MedicoDao;
 
 public class CadMedHandler implements RequestHandler<CadMedRequest, CadMedResponse> {
-
+  
   @Override
   public CadMedResponse handleRequest(CadMedRequest input, Context context) {
 
+    //Fazendo resposta
+    CadMedResponse response = new CadMedResponse();
+    
     MedicoBean mb = new MedicoBean();
 
     // Informações do médico
@@ -74,13 +78,23 @@ public class CadMedHandler implements RequestHandler<CadMedRequest, CadMedRespon
     mb.addEndereco(ec);
     
     //Cadastrando
-    int id = new MedicoDao().cadastrar(mb);
+    int id = -1;
     
-    //Fazendo resposta
-    CadMedResponse response = new CadMedResponse();
+    try {
+      
+      id = new MedicoDao().cadastrar(mb);
+    } catch (SQLException e) {
+      
+      response.setSucesso(false);
+      response.addMessage("Falha", "Erro ao comunicar com banco de dados");
+      
+      context.getLogger().log("Erro ao comunicar com banco de dados: " + e.getMessage());
+      
+      return response;
+    }
     
     response.setId(id);
-    response.setSucesso(id == -1 ? false : true);
+    response.setSucesso(true);
     
     return response;
   }

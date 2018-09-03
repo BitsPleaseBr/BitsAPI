@@ -13,6 +13,8 @@ public class VerEmailHandler implements RequestHandler<VerEmailRequest, VerEmail
   @Override
   public VerEmailResponse handleRequest(VerEmailRequest input, Context context) {
 
+    VerEmailResponse response = new VerEmailResponse();
+    
     String email = input.getEmail();
 
     StatementFactory sf = new StatementFactory();
@@ -23,12 +25,19 @@ public class VerEmailHandler implements RequestHandler<VerEmailRequest, VerEmail
       
       boolean valido = !rs.next();
       
-      return new VerEmailResponse(true, valido);
+      response.setValido(valido);
     } catch (SQLException e) {
       
+      response.setSucesso(false);
+      response.addMessage("Falha", "Erro ao comunicar com banco de dados");
       
-      e.printStackTrace();
-      return new VerEmailResponse(false, false);
+      context.getLogger().log("Erro ao conectar com banco de dados: " + e.getMessage());
+      
+      return response;
     }
+    
+    response.setSucesso(true);
+    
+    return response;
   }
 }

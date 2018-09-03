@@ -1,10 +1,11 @@
 package bits.api.verificacoes.login;
 
-public class LoginResponse {
+import bits.api.Response;
+
+public class LoginResponse extends Response {
 
   
   private int id;
-  private boolean sucesso;
   
   
   public LoginResponse(boolean sucesso, int id) {
@@ -22,17 +23,6 @@ public class LoginResponse {
   public int getId() {
     
     return this.id;
-  }
-  
-  
-  public void setSucesso(boolean sucesso) {
-    
-    this.sucesso = sucesso;
-  }
-  
-  public boolean getSucesso() {
-    
-    return this.sucesso;
   }
   
   

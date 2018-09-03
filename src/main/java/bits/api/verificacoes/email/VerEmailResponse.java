@@ -1,9 +1,10 @@
 package bits.api.verificacoes.email;
 
-public class VerEmailResponse {
+import bits.api.Response;
+
+public class VerEmailResponse extends Response {
 
   
-  private boolean sucesso;
   private boolean valido;
   
   
@@ -11,17 +12,6 @@ public class VerEmailResponse {
     
     this.sucesso = sucesso;
     this.valido = valido;
-  }
-  
-  
-  public void setSucesso(boolean sucesso) {
-    
-    this.sucesso = sucesso;
-  }
-  
-  public boolean getSucesso() {
-    
-    return this.sucesso;
   }
   
   

@@ -13,6 +13,8 @@ public class VerCPFHandler implements RequestHandler<VerCPFRequest, VerCPFRespon
   @Override
   public VerCPFResponse handleRequest(VerCPFRequest input, Context context) {
 
+    VerCPFResponse response = new VerCPFResponse();
+    
     String cpf = input.getCPF();
 
     StatementFactory sf = new StatementFactory();
@@ -28,12 +30,19 @@ public class VerCPFHandler implements RequestHandler<VerCPFRequest, VerCPFRespon
         }
       }
       
-      return new VerCPFResponse(true, valido);
-      
+      response.setValido(valido);  
     } catch (SQLException e) {
       
-      e.printStackTrace();
-      return new VerCPFResponse(false, false);
+      response.setSucesso(false);
+      response.addMessage("Falha", "Erro ao comunicar com banco de dados");
+      
+      context.getLogger().log("Falha ao comunicar com banco de dados: " + e.getMessage());
+      
+      return response;
     }
+    
+    response.setSucesso(true);
+    
+    return response;
   }
 }

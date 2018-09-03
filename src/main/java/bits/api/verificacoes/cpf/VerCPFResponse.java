@@ -1,14 +1,16 @@
 package bits.api.verificacoes.cpf;
 
-public class VerCPFResponse {
+import bits.api.Response;
+
+public class VerCPFResponse extends Response {
 
   
   private boolean valido;
-  private boolean  sucesso;
   
   
   public VerCPFResponse(boolean sucesso, boolean valido) {
     
+    this.sucesso = sucesso;
     this.valido = valido;
   }
   
@@ -21,16 +23,6 @@ public class VerCPFResponse {
   public boolean getValido() {
     
     return this.valido;
-  }
-  
-  public void setSucesso(boolean sucesso) {
-    
-    this.sucesso = sucesso;
-  }
-  
-  public boolean getSucesso() {
-    
-    return this.sucesso;
   }
   
   public VerCPFResponse() {}

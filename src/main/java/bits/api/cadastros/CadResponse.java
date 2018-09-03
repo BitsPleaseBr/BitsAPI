@@ -1,9 +1,10 @@
 package bits.api.cadastros;
 
-public class CadResponse {
+import bits.api.Response;
+
+public class CadResponse extends Response {
 
   
-  protected boolean sucesso;
   protected int id;
   
   
@@ -13,16 +14,6 @@ public class CadResponse {
     this.id = id;
   }
   
-  
-  public void setSucesso(boolean sucesso) {
-    
-    this.sucesso = sucesso;
-  }
-  
-  public boolean getSucesso() {
-    
-    return this.sucesso;
-  }
   
   public void setId(int id) {
     
