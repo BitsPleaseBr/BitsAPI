@@ -1,8 +1,8 @@
-package bits.api.verificacoes.email;
+package bits.api.cadastro.verificacoes.email;
 
-import bits.api.Response;
+import bits.api.cadastro.CadastroResponse;
 
-public class VerEmailResponse extends Response {
+public class VerEmailResponse extends CadastroResponse {
 
   
   private boolean valido;

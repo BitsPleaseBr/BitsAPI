@@ -1,6 +1,8 @@
-package bits.api.verificacoes.login;
+package bits.api.cadastro.verificacoes.login;
 
-public class LoginRequest {
+import bits.api.cadastro.CadastroRequest;
+
+public class LoginRequest extends CadastroRequest {
 
   
   private String email, senha;

@@ -1,4 +1,4 @@
-package bits.api.cadastros.paciente;
+package bits.api.cadastro.cadastros.paciente;
 
 import java.sql.SQLException;
 import com.amazonaws.services.lambda.runtime.Context;

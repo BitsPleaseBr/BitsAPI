@@ -1,6 +1,8 @@
-package bits.api.cadastros;
+package bits.api.cadastro.cadastros;
 
-public class CadRequest {
+import bits.api.cadastro.CadastroRequest;
+
+public class CadRequest extends CadastroRequest {
 
   
   protected String nome, sobrenome, cpf, dataNascimento, email, senha;

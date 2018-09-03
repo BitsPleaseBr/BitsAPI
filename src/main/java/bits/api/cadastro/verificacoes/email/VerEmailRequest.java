@@ -1,6 +1,8 @@
-package bits.api.verificacoes.email;
+package bits.api.cadastro.verificacoes.email;
 
-public class VerEmailRequest {
+import bits.api.cadastro.CadastroRequest;
+
+public class VerEmailRequest extends CadastroRequest {
 
   
   private String email;

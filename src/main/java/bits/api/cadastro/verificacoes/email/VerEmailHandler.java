@@ -1,4 +1,4 @@
-package bits.api.verificacoes.email;
+package bits.api.cadastro.verificacoes.email;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

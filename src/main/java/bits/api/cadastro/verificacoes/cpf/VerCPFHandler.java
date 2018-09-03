@@ -1,4 +1,4 @@
-package bits.api.verificacoes.cpf;
+package bits.api.cadastro.verificacoes.cpf;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

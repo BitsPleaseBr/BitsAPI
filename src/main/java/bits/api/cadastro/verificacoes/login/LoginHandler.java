@@ -1,4 +1,4 @@
-package bits.api.verificacoes.login;
+package bits.api.cadastro.verificacoes.login;
 
 import java.sql.SQLException;
 import com.amazonaws.services.lambda.runtime.Context;

@@ -1,6 +1,6 @@
-package bits.api.cadastros.paciente;
+package bits.api.cadastro.cadastros.paciente;
 
-import bits.api.cadastros.CadRequest;
+import bits.api.cadastro.cadastros.CadRequest;
 
 public class CadPacRequest extends CadRequest {
   

@@ -1,8 +1,8 @@
-package bits.api.verificacoes.cpf;
+package bits.api.cadastro.verificacoes.cpf;
 
-import bits.api.Response;
+import bits.api.cadastro.CadastroResponse;
 
-public class VerCPFResponse extends Response {
+public class VerCPFResponse extends CadastroResponse {
 
   
   private boolean valido;
