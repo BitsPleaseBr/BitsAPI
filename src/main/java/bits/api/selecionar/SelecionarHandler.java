@@ -30,14 +30,14 @@ public class SelecionarHandler extends Handler
 
     switch (input.getTipo()) {
 
-      case SELECIONAR_MEDICO: return new SelMedHandler()
-                                .handleRequest(g.fromJson(json, SelMedRequest.class), context);
+      case SELECIONAR_MEDICO:    return new SelMedHandler()
+                                   .handleRequest(g.fromJson(json, SelMedRequest.class), context);
 
-      case SELECIONAR_PACIENTE: return new SelPacHandler()
-                                  .handleRequest(g.fromJson(json, SelPacRequest.class), context);
+      case SELECIONAR_PACIENTE:  return new SelPacHandler()
+                                   .handleRequest(g.fromJson(json, SelPacRequest.class), context);
 
-      case SELECIONAR_LOGIN: return new LoginHandler()
-                              .handleRequest(g.fromJson(json, LoginRequest.class), context);
+      case SELECIONAR_LOGIN:     return new LoginHandler()
+                                   .handleRequest(g.fromJson(json, LoginRequest.class), context);
     }
 
     response.setSucesso(true);
