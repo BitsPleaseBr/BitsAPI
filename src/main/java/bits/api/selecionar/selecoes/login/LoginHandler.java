@@ -1,15 +1,16 @@
-package bits.api.cadastro.verificacoes.login;
+package bits.api.selecionar.selecoes.login;
 
 import java.sql.SQLException;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import bits.api.Handler;
+import bits.api.selecionar.SelecionarResponse;
 import model.dao.UserDao;
 
-public class LoginHandler extends Handler implements RequestHandler<LoginRequest, LoginResponse> {
+public class LoginHandler extends Handler implements RequestHandler<LoginRequest, SelecionarResponse> {
 
   @Override
-  public LoginResponse handleRequest(LoginRequest input, Context context) {
+  public SelecionarResponse handleRequest(LoginRequest input, Context context) {
 
     setContext(context);
     
@@ -27,9 +28,9 @@ public class LoginHandler extends Handler implements RequestHandler<LoginRequest
     } catch (SQLException e) {
       
       response.setSucesso(false);
-      response.addMessage("Falha", "Erro ao comunicar com banco de dados");
+      response.addMessage("Falha", System.getenv("SQLException"));
       
-      log("Falha ao comunicar com banco de dados: " + e.getMessage());
+      log(System.getenv("SQLException") + ": " + e.getMessage());
       
       return response;
     }

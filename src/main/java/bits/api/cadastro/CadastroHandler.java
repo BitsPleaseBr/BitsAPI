@@ -12,13 +12,11 @@ import bits.api.cadastro.verificacoes.cpf.VerCPFHandler;
 import bits.api.cadastro.verificacoes.cpf.VerCPFRequest;
 import bits.api.cadastro.verificacoes.email.VerEmailHandler;
 import bits.api.cadastro.verificacoes.email.VerEmailRequest;
-import bits.api.cadastro.verificacoes.login.LoginHandler;
-import bits.api.cadastro.verificacoes.login.LoginRequest;
 
 public class CadastroHandler extends Handler implements RequestHandler<CadastroRequest, CadastroResponse> {
 
   
-  private final static int CADASTRO_MEDICO = 1, CADASTRO_PACIENTE = 2, VERIFICACAO_CPF = 3, VERIFICACAO_EMAIL = 4, VERIFICACAO_LOGIN = 5;
+  private final static int CADASTRO_MEDICO = 1, CADASTRO_PACIENTE = 2, VERIFICACAO_CPF = 3, VERIFICACAO_EMAIL = 4;
   
   
   @Override
@@ -44,9 +42,6 @@ public class CadastroHandler extends Handler implements RequestHandler<CadastroR
       
       case VERIFICACAO_EMAIL: return new VerEmailHandler()
                                 .handleRequest(g.fromJson(json, VerEmailRequest.class), context);
-      
-      case VERIFICACAO_LOGIN: return new LoginHandler()
-                                .handleRequest(g.fromJson(json, LoginRequest.class), context);
     }
 
     return null;

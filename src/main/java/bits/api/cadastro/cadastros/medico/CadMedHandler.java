@@ -107,9 +107,9 @@ public class CadMedHandler extends Handler implements RequestHandler<CadMedReque
     } catch (SQLException e) {
       
       response.setSucesso(false);
-      response.addMessage("Falha", "Erro ao comunicar com banco de dados");
+      response.addMessage("Falha", System.getenv("SQLException"));
       
-      log("Erro ao comunicar com banco de dados: " + e.getMessage());
+      log(System.getenv("SQLException") + ": " + e.getMessage());
       
       return response;
     }

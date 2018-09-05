@@ -1,8 +1,8 @@
-package bits.api.cadastro.verificacoes.login;
+package bits.api.selecionar.selecoes.login;
 
-import bits.api.cadastro.CadastroResponse;
+import bits.api.selecionar.SelecionarResponse;
 
-public class LoginResponse extends CadastroResponse {
+public class LoginResponse extends SelecionarResponse {
 
   
   private int id;

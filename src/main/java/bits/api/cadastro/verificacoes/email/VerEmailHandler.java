@@ -34,9 +34,9 @@ public class VerEmailHandler extends Handler implements RequestHandler<VerEmailR
     } catch (SQLException e) {
       
       response.setSucesso(false);
-      response.addMessage("Falha", "Erro ao comunicar com banco de dados");
+      response.addMessage("Falha", System.getenv("SQLException"));
       
-      log("Erro ao conectar com banco de dados: " + e.getMessage());
+      log(System.getenv("SQLException") + ": " + e.getMessage());
       
       return response;
     }

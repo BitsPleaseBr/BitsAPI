@@ -1,6 +1,5 @@
 package bits.api.cadastro.cadastros;
 
-import bits.api.Response;
 import bits.api.cadastro.CadastroResponse;
 
 public class CadResponse extends CadastroResponse {

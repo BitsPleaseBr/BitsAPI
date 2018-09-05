@@ -40,9 +40,9 @@ public class CadPacHandler extends Handler implements RequestHandler<CadPacReque
     } catch (SQLException e) {
 
       response.setSucesso(false);
-      response.addMessage("Falha", "Falha ao comunicar com banco de dados");
+      response.addMessage("Falha", System.getenv("SQLException"));
       
-      log("Falha ao comunicar com banco de dados: " + e.getMessage());
+      log(System.getenv("SQLException") + ": " + e.getMessage());
       
       return response;
     }

@@ -1,4 +1,4 @@
-package bits.api.cadastro.verificacoes.login;
+package bits.api.selecionar.selecoes.login;
 
 import bits.api.cadastro.CadastroRequest;
 

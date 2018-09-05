@@ -7,7 +7,18 @@ public class Response {
   
   protected boolean sucesso;
   private HashMap<String, String> messages = new HashMap<>();
+  protected String lambdaInvocada;
   
+  
+  public void setLambdaInvocada(String nome) {
+    
+    this.lambdaInvocada = nome;
+  }
+  
+  public String getLambdaInvocada() {
+    
+    return this.lambdaInvocada;
+  }
   
   public Response(boolean sucesso, HashMap<String, String> messages) {
     
