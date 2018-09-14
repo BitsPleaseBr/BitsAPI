@@ -4,8 +4,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.google.gson.Gson;
 import s3.api.Handler;
-import s3.api.selecionar.selecoes.login.LoginHandler;
-import s3.api.selecionar.selecoes.login.LoginRequest;
 import s3.api.selecionar.selecoes.medico.SelMedHandler;
 import s3.api.selecionar.selecoes.medico.SelMedRequest;
 import s3.api.selecionar.selecoes.paciente.SelPacHandler;
@@ -15,7 +13,8 @@ public class SelecionarHandler extends Handler
     implements RequestHandler<SelecionarRequest, SelecionarResponse> {
 
 
-  private final static int SELECIONAR_PACIENTE = 1, SELECIONAR_MEDICO = 2, SELECIONAR_LOGIN = 3;
+  private final static String SELECIONAR_PACIENTE = System.getenv("SELECIONAR_PACIENTE"),
+                              SELECIONAR_MEDICO   = System.getenv("SELECIONAR_MEDICO");
 
 
   @Override
@@ -28,17 +27,13 @@ public class SelecionarHandler extends Handler
     Gson g = new Gson();
     String json = g.toJson(input.getValores());
 
-    switch (input.getTipo()) {
+    String tipo = input.getTipo();
+    
+    if (tipo.equals(SELECIONAR_MEDICO))
+      return new SelMedHandler().handleRequest(g.fromJson(json, SelMedRequest.class), context);
 
-      case SELECIONAR_MEDICO:    return new SelMedHandler()
-                                   .handleRequest(g.fromJson(json, SelMedRequest.class), context);
-
-      case SELECIONAR_PACIENTE:  return new SelPacHandler()
-                                   .handleRequest(g.fromJson(json, SelPacRequest.class), context);
-
-      case SELECIONAR_LOGIN:     return new LoginHandler()
-                                   .handleRequest(g.fromJson(json, LoginRequest.class), context);
-    }
+    if (tipo.equals(SELECIONAR_PACIENTE))
+      return new SelPacHandler().handleRequest(g.fromJson(json, SelPacRequest.class), context);
 
     response.setSucesso(true);
 

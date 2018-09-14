@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import model.bean.info.Tabela;
 import model.bean.info.UserInfo;
-import model.dao.StatementFactory;
+import model.dao.statement.StatementBuilder;
 import s3.api.Handler;
 
 public class VerEmailHandler extends Handler implements RequestHandler<VerEmailRequest, VerEmailResponse> {
@@ -20,13 +20,13 @@ public class VerEmailHandler extends Handler implements RequestHandler<VerEmailR
     
     String email = input.getEmail();
 
-    StatementFactory sf = new StatementFactory();
+    StatementBuilder sf = new StatementBuilder();
 
     try {
       
       log("Executando statement para comunicação com banco de dados...");
       
-      ResultSet rs = sf.setTabela(Tabela.User).setTipo(sf.SELECT).setInfos(UserInfo.ID).setCondition(UserInfo.Email).setConditionValue(email).create().executeQuery();
+      ResultSet rs = sf.withTabela(Tabela.User).withTipo(sf.SELECT).withInfos(UserInfo.ID).addCondition(UserInfo.Email).addConditionValue(email).build().executeQuery();
       
       boolean valido = !rs.next();
       

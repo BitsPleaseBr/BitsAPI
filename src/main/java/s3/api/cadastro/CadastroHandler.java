@@ -13,36 +13,40 @@ import s3.api.cadastro.verificacoes.cpf.VerCPFRequest;
 import s3.api.cadastro.verificacoes.email.VerEmailHandler;
 import s3.api.cadastro.verificacoes.email.VerEmailRequest;
 
-public class CadastroHandler extends Handler implements RequestHandler<CadastroRequest, CadastroResponse> {
+public class CadastroHandler extends Handler
+    implements RequestHandler<CadastroRequest, CadastroResponse> {
 
-  
-  private final static int CADASTRO_MEDICO = 1, CADASTRO_PACIENTE = 2, VERIFICACAO_CPF = 3, VERIFICACAO_EMAIL = 4;
-  
-  
+
+  private final static String CADASTRO_MEDICO = System.getenv("CADASTRO_MEDICO"),
+                              CADASTRO_PACIENTE = System.getenv("CADASTRO_PACIENTE"),
+                              VERIFICACAO_CPF = System.getenv("VERIFICACAO_CPF"),
+                              VERIFICACAO_EMAIL = System.getenv("VERIFICACAO_EMAIL");
+
+
   @Override
   public CadastroResponse handleRequest(CadastroRequest input, Context context) {
-    
+
     setContext(context);
-    
+
     Gson g = new Gson();
     String json = g.toJson(input.getValores());
-    
+
     log("Redirecionando request...");
+
+    String tipo = input.getTipo();
     
-    switch (input.getTipo()) {
-      
-      case CADASTRO_MEDICO:   return new CadMedHandler()
-                                .handleRequest(g.fromJson(json, CadMedRequest.class), context);
-      
-      case CADASTRO_PACIENTE: return new CadPacHandler()
-                                .handleRequest(g.fromJson(json, CadPacRequest.class), context);
-      
-      case VERIFICACAO_CPF:   return new VerCPFHandler()
-                                .handleRequest(g.fromJson(json, VerCPFRequest.class), context);
-      
-      case VERIFICACAO_EMAIL: return new VerEmailHandler()
-                                .handleRequest(g.fromJson(json, VerEmailRequest.class), context);
-    }
+    if (tipo.equals(CADASTRO_MEDICO))
+      return new CadMedHandler().handleRequest(g.fromJson(json, CadMedRequest.class), context);
+
+    if (tipo.equals(CADASTRO_PACIENTE))
+      return new CadPacHandler().handleRequest(g.fromJson(json, CadPacRequest.class), context);
+
+    if (tipo.equals(VERIFICACAO_CPF))
+      return new VerCPFHandler().handleRequest(g.fromJson(json, VerCPFRequest.class), context);
+
+    if (tipo.equals(VERIFICACAO_EMAIL))
+      return new VerEmailHandler().handleRequest(g.fromJson(json, VerEmailRequest.class),
+          context);
 
     return null;
   }

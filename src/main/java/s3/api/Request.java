@@ -5,16 +5,16 @@ import java.util.HashMap;
 public class Request {
 
 
-  private int tipo;
+  private String tipo;
   private HashMap<String, Object> valores;
 
 
-  public void setTipo(int tipo) {
+  public void setTipo(String tipo) {
 
     this.tipo = tipo;
   }
 
-  public int getTipo() {
+  public String getTipo() {
 
     return this.tipo;
   }

@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import model.bean.info.Tabela;
 import model.bean.info.UserInfo;
-import model.dao.StatementFactory;
+import model.dao.statement.StatementBuilder;
 import s3.api.Handler;
 
 public class VerCPFHandler extends Handler implements RequestHandler<VerCPFRequest, VerCPFResponse> {
@@ -20,13 +20,13 @@ public class VerCPFHandler extends Handler implements RequestHandler<VerCPFReque
     
     String cpf = input.getCPF();
     
-    StatementFactory sf = new StatementFactory();
+    StatementBuilder sf = new StatementBuilder();
     ResultSet rs;
     try {
       
       log("Executando statement para comunicação com banco de dados...");
       
-      rs = sf.setTabela(Tabela.User).setTipo(sf.SELECT).setInfos(UserInfo.Situacao).setCondition(UserInfo.CPF).setConditionValue(cpf).create().executeQuery();
+      rs = sf.withTabela(Tabela.User).withTipo(sf.SELECT).withInfos(UserInfo.Situacao).addCondition(UserInfo.CPF).addConditionValue(cpf).build().executeQuery();
    
       boolean valido = true;
       
