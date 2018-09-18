@@ -1,8 +1,8 @@
-package s3.api.cadastro.verificacoes.email;
+package s3.api.selecionar.verificacoes.email;
 
-import s3.api.cadastro.CadastroResponse;
+import s3.api.selecionar.SelecionarResponse;
 
-public class VerEmailResponse extends CadastroResponse {
+public class VerEmailResponse extends SelecionarResponse {
 
   
   private boolean valido;
