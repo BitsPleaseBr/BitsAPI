@@ -1,21 +1,22 @@
 package s3.api.selecionar;
 
-import model.bean.UserBean;
+import java.util.HashMap;
+import model.bean.info.Info;
 import s3.api.Response;
 
 public class SelecionarResponse extends Response {
 
   
-  private UserBean bean;
+  private HashMap<? extends Info, Object> infos;
   
   
-  public void setBean(UserBean bean) {
+  public void setInfos(HashMap<? extends Info, Object> infos) {
     
-    this.bean = bean;
+    this.infos = infos;
   }
   
-  public UserBean getBean() {
+  public HashMap<? extends Info, Object> getInfos() {
     
-    return this.bean;
+    return this.infos;
   }
 }

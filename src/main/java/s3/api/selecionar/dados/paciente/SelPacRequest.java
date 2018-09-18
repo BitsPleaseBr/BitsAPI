@@ -1,4 +1,4 @@
-package s3.api.selecionar.selecoes.paciente;
+package s3.api.selecionar.dados.paciente;
 
 import s3.api.selecionar.SelecionarRequest;
 

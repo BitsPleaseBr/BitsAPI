@@ -4,17 +4,20 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.google.gson.Gson;
 import s3.api.Handler;
-import s3.api.selecionar.selecoes.medico.SelMedHandler;
-import s3.api.selecionar.selecoes.medico.SelMedRequest;
-import s3.api.selecionar.selecoes.paciente.SelPacHandler;
-import s3.api.selecionar.selecoes.paciente.SelPacRequest;
+import s3.api.selecionar.dados.medico.SelMedHandler;
+import s3.api.selecionar.dados.medico.SelMedRequest;
+import s3.api.selecionar.dados.paciente.SelPacHandler;
+import s3.api.selecionar.dados.paciente.SelPacRequest;
+import s3.api.selecionar.dados.usuario.SelUseHandler;
+import s3.api.selecionar.dados.usuario.SelUseRequest;
 
 public class SelecionarHandler extends Handler
     implements RequestHandler<SelecionarRequest, SelecionarResponse> {
 
 
-  private final static String SELECIONAR_PACIENTE = System.getenv("SELECIONAR_PACIENTE"),
-                              SELECIONAR_MEDICO   = System.getenv("SELECIONAR_MEDICO");
+  private final static String SELECIONAR_DADOS_PACIENTE = System.getenv("SELECIONAR_DADOS_PACIENTE"),
+                              SELECIONAR_DADOS_MEDICO   = System.getenv("SELECIONAR_DADOS_MEDICO"),
+                              SELECIONAR_DADOS_USUARIO  = System.getenv("SELECIONAR_DADOS_USUARIO");
 
 
   @Override
@@ -29,12 +32,15 @@ public class SelecionarHandler extends Handler
 
     String tipo = input.getTipo();
     
-    if (tipo.equals(SELECIONAR_MEDICO))
+    if (tipo.equals(SELECIONAR_DADOS_MEDICO))
       return new SelMedHandler().handleRequest(g.fromJson(json, SelMedRequest.class), context);
 
-    if (tipo.equals(SELECIONAR_PACIENTE))
+    if (tipo.equals(SELECIONAR_DADOS_PACIENTE))
       return new SelPacHandler().handleRequest(g.fromJson(json, SelPacRequest.class), context);
 
+    if (tipo.equals(SELECIONAR_DADOS_USUARIO))
+      return new SelUseHandler().handleRequest(g.fromJson(json, SelUseRequest.class), context);
+    
     response.setSucesso(true);
 
     log("A função foi executada com sucesso!");

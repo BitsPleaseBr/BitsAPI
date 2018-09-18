@@ -1,4 +1,4 @@
-package s3.api.selecionar.selecoes.medico;
+package s3.api.selecionar.dados.medico;
 
 import java.sql.SQLException;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -7,23 +7,30 @@ import model.bean.MedicoBean;
 import model.dao.MedicoDao;
 import s3.api.Handler;
 
-public class SelMedHandler extends Handler implements RequestHandler<SelMedRequest, SelMedResponse> {
+public class SelMedHandler extends Handler
+    implements RequestHandler<SelMedRequest, SelMedResponse> {
 
   @Override
   public SelMedResponse handleRequest(SelMedRequest input, Context context) {
 
     setContext(context);
-    
+
     SelMedResponse response = new SelMedResponse();
     MedicoBean ub = null;
-    
+
     try {
 
       log("Obtendo dados do médico...");
 
       ub = new MedicoDao().selecionar(input.getId());
 
-      log(ub == null ? "Médico não encontrado!": "Dados obtidos com sucesso!");
+      if (ub == null) {
+
+        log("Médico não encontrado!");
+        response.addMessage("Falha", "Não foi possível encontrar o médico");
+      } else
+        log("Dados obtidos com sucesso!");
+
     } catch (SQLException e) {
 
       response.setSucesso(false);
@@ -35,7 +42,7 @@ public class SelMedHandler extends Handler implements RequestHandler<SelMedReque
     }
 
     response.setSucesso(true);
-    response.setBean(ub);
+    response.setInfos(ub.getInfosMed());
 
     log("A função foi executada com sucesso!");
 
