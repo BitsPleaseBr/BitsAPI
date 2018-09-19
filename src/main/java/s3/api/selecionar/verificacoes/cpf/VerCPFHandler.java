@@ -1,4 +1,4 @@
-package s3.api.cadastro.verificacoes.email;
+package s3.api.selecionar.verificacoes.cpf;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,28 +9,34 @@ import model.bean.info.UserInfo;
 import model.dao.statement.StatementBuilder;
 import s3.api.Handler;
 
-public class VerEmailHandler extends Handler implements RequestHandler<VerEmailRequest, VerEmailResponse> {
+public class VerCPFHandler extends Handler implements RequestHandler<VerCPFRequest, VerCPFResponse> {
 
   @Override
-  public VerEmailResponse handleRequest(VerEmailRequest input, Context context) {
+  public VerCPFResponse handleRequest(VerCPFRequest input, Context context) {
 
     setContext(context);
     
-    VerEmailResponse response = new VerEmailResponse();
+    VerCPFResponse response = new VerCPFResponse();
     
-    String email = input.getEmail();
-
+    String cpf = input.getCPF();
+    
     StatementBuilder sf = new StatementBuilder();
-
+    ResultSet rs;
     try {
       
       log("Executando statement para comunicação com banco de dados...");
       
-      ResultSet rs = sf.withTabela(Tabela.User).withTipo(sf.SELECT).withInfos(UserInfo.ID).addCondition(UserInfo.Email).addConditionValue(email).build().executeQuery();
+      rs = sf.withTabela(Tabela.User).withTipo(sf.SELECT).withInfos(UserInfo.Situacao).addCondition(UserInfo.CPF).addConditionValue(cpf).build().executeQuery();
+   
+      boolean valido = true;
       
-      boolean valido = !rs.next();
+      if (rs.next()) {
+        if (rs.getInt(1) > 3) {
+          valido = false;
+        }
+      }
       
-      response.setValido(valido);
+      response.setValido(valido);  
     } catch (SQLException e) {
       
       response.setSucesso(false);

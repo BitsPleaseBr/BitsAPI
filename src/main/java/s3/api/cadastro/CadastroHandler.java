@@ -8,19 +8,13 @@ import s3.api.cadastro.cadastros.medico.CadMedHandler;
 import s3.api.cadastro.cadastros.medico.CadMedRequest;
 import s3.api.cadastro.cadastros.paciente.CadPacHandler;
 import s3.api.cadastro.cadastros.paciente.CadPacRequest;
-import s3.api.cadastro.verificacoes.cpf.VerCPFHandler;
-import s3.api.cadastro.verificacoes.cpf.VerCPFRequest;
-import s3.api.cadastro.verificacoes.email.VerEmailHandler;
-import s3.api.cadastro.verificacoes.email.VerEmailRequest;
 
 public class CadastroHandler extends Handler
     implements RequestHandler<CadastroRequest, CadastroResponse> {
 
 
-  private final static String CADASTRO_MEDICO = System.getenv("CADASTRO_MEDICO"),
-                              CADASTRO_PACIENTE = System.getenv("CADASTRO_PACIENTE"),
-                              VERIFICACAO_CPF = System.getenv("VERIFICACAO_CPF"),
-                              VERIFICACAO_EMAIL = System.getenv("VERIFICACAO_EMAIL");
+  private final static String CADASTRO_MEDICO = System.getenv("CADASTRAR_MEDICO"),
+                              CADASTRO_PACIENTE = System.getenv("CADASTRAR_PACIENTE");
 
 
   @Override
@@ -28,6 +22,8 @@ public class CadastroHandler extends Handler
 
     setContext(context);
 
+    CadastroResponse response = new CadastroResponse();
+    
     Gson g = new Gson();
     String json = g.toJson(input.getValores());
 
@@ -41,13 +37,11 @@ public class CadastroHandler extends Handler
     if (tipo.equals(CADASTRO_PACIENTE))
       return new CadPacHandler().handleRequest(g.fromJson(json, CadPacRequest.class), context);
 
-    if (tipo.equals(VERIFICACAO_CPF))
-      return new VerCPFHandler().handleRequest(g.fromJson(json, VerCPFRequest.class), context);
-
-    if (tipo.equals(VERIFICACAO_EMAIL))
-      return new VerEmailHandler().handleRequest(g.fromJson(json, VerEmailRequest.class),
-          context);
-
-    return null;
+    response.setSucesso(true);
+    response.addMessage("Erro de Tipo", "Não foi encontrada nenhuma função lambda para o tipo " + tipo);
+    
+    log("A função foi executada com sucesso!");
+    
+    return response;
   }
 }

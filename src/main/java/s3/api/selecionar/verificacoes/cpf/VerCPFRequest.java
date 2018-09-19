@@ -1,8 +1,8 @@
-package s3.api.cadastro.verificacoes.cpf;
+package s3.api.selecionar.verificacoes.cpf;
 
-import s3.api.cadastro.CadastroRequest;
+import s3.api.selecionar.SelecionarRequest;
 
-public class VerCPFRequest extends CadastroRequest {
+public class VerCPFRequest extends SelecionarRequest {
 
   
   private String cpf;

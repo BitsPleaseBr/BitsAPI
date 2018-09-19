@@ -1,8 +1,8 @@
-package s3.api.cadastro.verificacoes.email;
+package s3.api.selecionar.verificacoes.email;
 
-import s3.api.cadastro.CadastroRequest;
+import s3.api.selecionar.SelecionarRequest;
 
-public class VerEmailRequest extends CadastroRequest {
+public class VerEmailRequest extends SelecionarRequest {
 
   
   private String email;

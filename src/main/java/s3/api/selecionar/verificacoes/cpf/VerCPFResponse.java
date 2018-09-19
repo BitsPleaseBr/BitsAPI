@@ -1,8 +1,8 @@
-package s3.api.cadastro.verificacoes.cpf;
+package s3.api.selecionar.verificacoes.cpf;
 
-import s3.api.cadastro.CadastroResponse;
+import s3.api.selecionar.SelecionarResponse;
 
-public class VerCPFResponse extends CadastroResponse {
+public class VerCPFResponse extends SelecionarResponse {
 
   
   private boolean valido;
